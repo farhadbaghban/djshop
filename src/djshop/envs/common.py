@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-^j!(6zrqh9ken$k3mmt)p+@83)ofbu%6jsdyhn9!6&-djjd+_*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,11 +37,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "django_filters",
+    "corsheaders",
+    "treebeard",
+    "channels",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -68,6 +74,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "djshop.wsgi.application"
+ASGI_APPLICATION = "djshop.asgi.application"
 
 
 # Database

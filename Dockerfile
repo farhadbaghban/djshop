@@ -1,11 +1,11 @@
-FROM hemanhp/djbase:4.2.7
+FROM hemanhp/djbase:4.2.4
 
 
 COPY ./requirements /requirements
 COPY ./scripts /scripts
 COPY ./src /src
 
-WORKDIR /src
+WORKDIR src
 
 EXPOSE 8000
 
