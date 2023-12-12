@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "treebeard",
     "channels",
+    "djshop.apps.catalog"
 ]
 
 MIDDLEWARE = [
