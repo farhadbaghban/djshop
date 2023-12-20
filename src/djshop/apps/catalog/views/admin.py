@@ -1,7 +1,35 @@
+from typing import Any
 from rest_framework import viewsets
-from djshop.apps.catalog.serializers.admin import CategorySerializer
+from rest_framework.exceptions import NotAcceptable
+from djshop.apps.catalog.serializers.admin import (
+    CategoryModificationSerializer,
+    CategoryNodeSerializer,
+    CreateCategoryNodeSerializer,
+    CategoryTreeSerializer,
+)
 from djshop.apps.catalog.models import Category
 
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        if self.action == "list":
+            return Category.objects.filter(depth=1)
+        else:
+            return Category.objects.all()
+
+    def get_serializer_class(self):
+        match self.action:
+            case "list":
+                return CategoryTreeSerializer
+            case "create":
+                return CreateCategoryNodeSerializer
+            case "retrieve":
+                return CategoryNodeSerializer
+            case "update":
+                return CategoryModificationSerializer
+            case "partial_update":
+                return CategoryModificationSerializer
+            case "destroy":
+                return CategoryModificationSerializer
+            case _:
+                raise NotAcceptable()
